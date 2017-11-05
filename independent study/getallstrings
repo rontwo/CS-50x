@@ -1,0 +1,31 @@
+/**
+ *  Print all strings from the given alphabet that are of the specified length.
+ *
+ *  @param alpha  - a string representing the alphabet of characters
+ *  @param len    - the length of the strings to print
+ *  @param prefix - a string of length len that is partially filled with characters from alpha
+ *  @param index  - the amount of characters currently filled in the prefix
+ **/
+void print_all_strings(string alpha, int len, string prefix, int index) {
+  const int N = strlen(alpha);
+  if (index >= len) {
+    printf("%s\n", prefix);
+  } else {
+    // !! YOUR CODE HERE !!
+  }
+}
+
+int main(int argc, string argv[])
+{ 
+  const string alpha = "01";
+  int len = 3;
+
+  // create a prefix array of the appropriate size
+  char prefix[len + 1];
+
+  // initialize the prefix with 0's -- this makes calling `printf` safer
+  memset(prefix, 0, len + 1);
+  print_all_strings(alpha, len, prefix, 0);
+  
+  return 0;
+}
