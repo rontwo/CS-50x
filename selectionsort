@@ -1,0 +1,30 @@
+#include <stdio.h>
+#define arrlen(x)  (sizeof(x) / sizeof((x)[0]))
+
+// Create swap function for two array elements
+void swap(int array[], int a, int b)
+{
+    int temp = array[a];
+    array[a] = array[b];
+    array[b] = temp;
+}
+
+
+// Create selection sort sort function
+void selectionsort(int values[], int n)
+{
+    int min = 0, n = arrlen(values);
+    for(int i = 0; i < n-1; i++)
+    {
+        for(int j = i+1; j < n; j++)
+        {
+            min = i;
+            if(values[min] < values[j])
+            {
+                min = j;
+            }
+            j++;
+        }
+        swap(values, values[i], value[min]);
+    }
+}
