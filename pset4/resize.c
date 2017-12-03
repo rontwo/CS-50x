@@ -1,5 +1,6 @@
 /**
  * Copies a BMP piece by piece, just because.
+ * Implemented using the "rewrite" method
  */
 
 #include <stdio.h>
