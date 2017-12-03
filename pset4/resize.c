@@ -8,6 +8,8 @@
 
 #include "bmp.h"
 
+#define const int HEADERSIZE = 54;
+
 int main(int argc, char *argv[])
 {
     // ensure proper usage
@@ -77,7 +79,7 @@ int main(int argc, char *argv[])
     int out_padding = (4 - (out_bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
 
     out_bi.biSizeImage = (out_bi.biWidth * sizeof(RGBTRIPLE) + out_padding) * abs(out_bi.biHeight);
-    out_bf.bfSize = out_bi.biSizeImage + 54;
+    out_bf.bfSize = out_bi.biSizeImage + HEADERSIZE;
 
     // write outfile's BITMAPFILEHEADER
     fwrite(&out_bf, sizeof(BITMAPFILEHEADER), 1, outptr);
@@ -86,7 +88,7 @@ int main(int argc, char *argv[])
     fwrite(&out_bi, sizeof(BITMAPINFOHEADER), 1, outptr);
 
     // Allocate memory (array) to hold each scanline
-    RGBTRIPLE *pixels = malloc(sizeof(RGBTRIPLE)*out_bi.biWidth);
+    RGBTRIPLE *rgb_arr = malloc(sizeof(RGBTRIPLE)*out_bi.biWidth);
 
     // iterate over infile's scanlines
     for (int i = 0, biHeight = abs(bi.biHeight); i < biHeight; i++)
@@ -103,7 +105,7 @@ int main(int argc, char *argv[])
             // Write RGB triple to array n (scalefactor) times
             for(int k = 0; k < scalefactor; k++)
             {
-                *(pixels+count) = triple;
+                *(rgbarr+count) = triple;
                 count++;
             }
         }
