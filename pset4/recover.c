@@ -45,8 +45,10 @@ int main(int argc, char *argv[])
     //While loop to run until ptr is at EOF
     while(fgets(checkbuffer, BLOCK, inptr) != NULL)
     {
-        //Declare temp variable storage and read infile into buffer
+        //Declare temp variable storage and read infile
         unsigned char* buffer = malloc(BLOCK);
+
+        //Read infile into buffer
         fread(buffer, BLOCK, 1, inptr);
 
         //check whether the current block is the start of a new JPG.
@@ -68,7 +70,7 @@ int main(int argc, char *argv[])
                 jpgcount++;
                 sprintf(newfile,"%03i.JPG", jpgcount);
 
-                //Create and write to new file
+                //Create and write to new outfile
                 outptr = fopen(newfile, "w");
                 if(outptr == NULL)
                 {
@@ -76,9 +78,11 @@ int main(int argc, char *argv[])
                     fprintf(stderr, "Could not create %s\n", newfile);
                     return 3;
                 }
+                //Write current blcok to outfile
                 fwrite(buffer,BLOCK,1,outptr);
             }
-        //Check to see if already in jpg; if so, write to outfile
+
+        //Check to see if already in jpg; if so, write current block to outfile
         else if(in_jpg)
             {
                 fwrite(buffer,BLOCK,1,outptr);
@@ -90,7 +94,14 @@ int main(int argc, char *argv[])
         //Free buffer after each iteration
         free(buffer);
     }
+
+    //Close input and output file after last
     fclose(inptr);
+    fclose(outptr);
+
+    //Free checkbuffer
     free(checkbuffer);
+
+    //Woohoo!
     return 0;
 }
