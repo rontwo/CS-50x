@@ -1,6 +1,12 @@
+
 /**
- * Recovers JPGs off a corrupted memory card
- */
+This program reads a block of memory and pulls out all JPG files. This is intended to be a forensic tool that allows the user to recover 
+JPGs from raw memory. It assumes the following:
+1) the first three bytes of every JPG start with 0xff/0xd8/0xff
+2) the fourth bye of every JPG can range from 0xe0 to 0xef
+3) JPGs are written onto memory in contiguous blocks of size 512 bytes, so that you can iterate over each block of 512bytes
+(i.e. JPGs can be found on the byte 512, 1024, 1536, etc...)
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
