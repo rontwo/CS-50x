@@ -36,9 +36,6 @@ int main(int argc, char *argv[])
     //Declare jpg checks
     bool in_jpg = false;
 
-    //Create name for first file
-    char newfile[8];
-
     //Create variable to pass through fgets check
     char* checkbuffer = malloc(BLOCK);
 
@@ -66,11 +63,13 @@ int main(int argc, char *argv[])
                 //Set in_jpg to true
                 in_jpg = true;
 
+                //Name new file
+                char newfile[8];
                 //Name new output file
                 jpgcount++;
                 sprintf(newfile,"%03i.JPG", jpgcount);
 
-                //Create and write to new outfile
+                //Create and open new outfile
                 outptr = fopen(newfile, "w");
                 if(outptr == NULL)
                 {
