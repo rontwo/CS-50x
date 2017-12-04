@@ -45,10 +45,8 @@ int main(int argc, char *argv[])
     //While loop to run until ptr is at EOF
     while(fgets(checkbuffer, BLOCK, inptr) != NULL)
     {
-        //Declare temp variable storage and read infile
+        //Declare temp variable storage and read infile into buffer
         unsigned char* buffer = malloc(BLOCK);
-
-        //Read infile into buffer
         fread(buffer, BLOCK, 1, inptr);
 
         //check whether the current block is the start of a new JPG.
