@@ -10,6 +10,7 @@
 #include <stdint.h>
 
 //Define block as 512 bytes
+#define BYTE uint8_t
 #define BLOCK 512
 
 int main(int argc, char *argv[])
@@ -36,15 +37,13 @@ int main(int argc, char *argv[])
     //Declare jpg checks
     bool in_jpg = false;
 
-    //Create variable to pass through fgets check
-    char* checkbuffer = malloc(BLOCK);
+    //Declare temp variable storage and read infile
+    BYTE checkbuffer[BLOCK];
 
     //While loop to run until ptr is at EOF
-    while(fgets(checkbuffer, BLOCK, inptr) != NULL)
+    while(fread(checkbuffer, BLOCK, 1, inptr) > 0)
     {
-        //Declare temp variable storage and read infile
-        unsigned char* buffer = malloc(BLOCK);
-
+        unsigned char *buffer = malloc(BLOCK);
         //Read infile into buffer
         fread(buffer, BLOCK, 1, inptr);
 
@@ -90,16 +89,12 @@ int main(int argc, char *argv[])
         //Move ptr to next block
         fseek(inptr,512,SEEK_CUR);
 
-        //Free buffer after each iteration
+        //Free buffer after every iteration
         free(buffer);
     }
-
     //Close input and output file after last
     fclose(inptr);
     fclose(outptr);
-
-    //Free checkbuffer
-    free(checkbuffer);
 
     //Woohoo!
     return 0;
