@@ -44,16 +44,11 @@ int main(int argc, char *argv[])
     bool in_jpg = false;
 
     //Declare temp variable storage and read infile
-    BYTE checkbuffer[BLOCK];
+    BYTE buffer[BLOCK];
 
     //While loop to run until ptr is at EOF
-    while(fread(checkbuffer, BLOCK, 1, inptr) > 0)
+    while(fread(buffer, BLOCK, 1, inptr) > 0)
     {
-        unsigned char *buffer = malloc(BLOCK);
-        //Read infile into buffer
-        fread(buffer, BLOCK, 1, inptr);
-
-        //check whether the current block is the start of a new JPG.
         if (buffer[0] == 0xff &&
             buffer[1] == 0xd8 &&
             buffer[2] == 0xff &&
@@ -91,13 +86,10 @@ int main(int argc, char *argv[])
             {
                 fwrite(buffer,BLOCK,1,outptr);
             }
-
-        //Move ptr to next block
-        fseek(inptr,512,SEEK_CUR);
-
-        //Free buffer after every iteration
-        free(buffer);
     }
+    //Free buffer after every iteration
+    free(buffer);
+
     //Close input and output file after last
     fclose(inptr);
     fclose(outptr);
