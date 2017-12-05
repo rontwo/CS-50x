@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
                 fwrite(buffer,BLOCK,1,outptr);
             }
     }
-    //Free buffer after every iteration
+    //Free buffer after while loop exits
     free(buffer);
 
     //Close input and output file after last
